@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: "esnext",
-    outDir: "../docs",
+    outDir: "./docs",
     assetsDir: ".",
   },
 });
