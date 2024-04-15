@@ -1,0 +1,58 @@
+import "./App.css";
+import { useState } from "react";
+import WordInput from "./components/WordInput/WordInput";
+import AlphabetGrid from "./components/AlphabetGrid/AlphabetGrid";
+import PossibleWords from "./components/PossibleWords/PossibleWords";
+
+function App() {
+  const initalLetters = [
+    { letter: "", number: 1 },
+    { letter: "", number: 2 },
+    { letter: "", number: 3 },
+    { letter: "", number: 4 },
+    { letter: "", number: 5 },
+    { letter: "", number: 6 },
+    { letter: "", number: 7 },
+    { letter: "", number: 8 },
+    { letter: "", number: 9 },
+    { letter: "", number: 10 },
+    { letter: "", number: 11 },
+    { letter: "", number: 12 },
+    { letter: "", number: 13 },
+    { letter: "", number: 14 },
+    { letter: "", number: 15 },
+    { letter: "", number: 16 },
+    { letter: "", number: 17 },
+    { letter: "", number: 18 },
+    { letter: "", number: 19 },
+    { letter: "", number: 20 },
+    { letter: "", number: 21 },
+    { letter: "", number: 22 },
+    { letter: "", number: 23 },
+    { letter: "", number: 24 },
+    { letter: "", number: 25 },
+    { letter: "", number: 26 },
+  ];
+  const [knownLetters, setknownLetters] = useState(initalLetters);
+  const [partialWord, setPartialWord] = useState<number[]>([]);
+  return (
+    <>
+      <AlphabetGrid
+        knownLetters={knownLetters}
+        setKnownLetters={setknownLetters}
+      />
+      <WordInput
+        knownLetters={knownLetters}
+        setKnownLetters={setknownLetters}
+        setPartialWord={setPartialWord}
+      />
+      <PossibleWords
+        knownLetters={knownLetters}
+        setKnownLetters={setknownLetters}
+        partialWord={partialWord}
+      />
+    </>
+  );
+}
+
+export default App;

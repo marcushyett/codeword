@@ -1,0 +1,21 @@
+.letter-container {
+  display: inline-block;
+  margin-right: 15px;
+}
+.letter-input {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  font-size: 20px;
+  text-align: center;
+}
+.letter-superscript {
+  font-size: 10px;
+  vertical-align: top;
+  margin-left: -16px;
+  margin-right: 0;
+  padding-right: 0;
+  text-align: left;
+  z-index: 2;
+}
