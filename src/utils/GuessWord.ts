@@ -2,6 +2,13 @@
 import axios from "axios";
 import { AlphabetGridItem } from "../components/AlphabetGrid/AlphabetGridItem";
 var dictionary: { Word: string; Rank: number }[] = [];
+const LoadDictionary = async () => {
+  const { data } = await axios.get("words.json.gz", {
+    decompress: true,
+  });
+  dictionary = data;
+  return data;
+};
 
 const GuessWord = (
   partial_word: number[],
@@ -21,6 +28,7 @@ const GuessWord = (
       .map((letter) => letter.letter)
       .join();
     var remaining_letters = `(?![${known_letters_string}])[A-Z]`;
+
     partial_word.forEach((letter, index) => {
       // if letter is in known_letters, add it to the regexp
       if (
@@ -84,13 +92,4 @@ const GuessWord = (
   return guesses;
 };
 
-const LoadDictionary = async () => {
-  const { data } = await axios.get("words.json.gz", {
-    decompress: true,
-  });
-  return data;
-};
-
-dictionary = await LoadDictionary();
-
-export default GuessWord;
+export { GuessWord, LoadDictionary };

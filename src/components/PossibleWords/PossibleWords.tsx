@@ -1,5 +1,5 @@
 import { AlphabetGridItem } from "../AlphabetGrid/AlphabetGridItem";
-import GuessWord from "../../utils/GuessWord";
+import { GuessWord, LoadDictionary } from "../../utils/GuessWord";
 import "./PossibleWords.css";
 
 const PossibleWords = ({
@@ -11,6 +11,7 @@ const PossibleWords = ({
   setKnownLetters: (value: AlphabetGridItem[]) => void;
   partialWord: number[];
 }): JSX.Element => {
+  LoadDictionary();
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     const word = (e.target as HTMLElement).dataset.word;
     const word_array = word?.split("");

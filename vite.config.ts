@@ -7,6 +7,6 @@ export default defineConfig({
   build: {
     target: "esnext",
     outDir: "./docs",
-    assetsDir: ".",
+    assetsDir: "./",
   },
 });
