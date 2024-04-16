@@ -1,6 +1,9 @@
 import { AlphabetGridItem } from "../AlphabetGrid/AlphabetGridItem";
 import { GuessWord, LoadDictionary } from "../../utils/GuessWord";
 import "./PossibleWords.css";
+import { useEffect, useState } from "react";
+
+var dictionary: { Word: string; Rank: number }[] = [];
 
 const PossibleWords = ({
   knownLetters,
@@ -11,7 +14,15 @@ const PossibleWords = ({
   setKnownLetters: (value: AlphabetGridItem[]) => void;
   partialWord: number[];
 }): JSX.Element => {
-  LoadDictionary();
+  const [loading, setLoading] = useState(true);
+  const initialCandiateWords = [] as { Word: string; Rank: number }[];
+  const [candidateWords, setCandidateWords] = useState(initialCandiateWords);
+  LoadDictionary().then((data) => {
+    console.log(data);
+    console.log("Dictionary loaded with " + data.length.toString() + " words");
+    setLoading(false);
+    dictionary = data;
+  });
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     const word = (e.target as HTMLElement).dataset.word;
     const word_array = word?.split("");
@@ -26,11 +37,18 @@ const PossibleWords = ({
       setKnownLetters(newArr);
     }
   };
+  useEffect(() => {
+    console.log("Partial word changed", partialWord);
+    if (partialWord.length > 2) {
+      const guesses = GuessWord(partialWord, knownLetters, dictionary);
+      setCandidateWords(guesses);
+      console.log(guesses);
+    }
+  }, [partialWord]);
   return (
     <ul className="candidate-words">
-      {GuessWord(partialWord, knownLetters)
-        .slice(0, 5)
-        .map((guess, index) => (
+      {!loading ? (
+        candidateWords.slice(0, 5).map((guess, index) => (
           <li
             key={index}
             className="candidate-word"
@@ -39,7 +57,10 @@ const PossibleWords = ({
           >
             {guess.Word}
           </li>
-        ))}
+        ))
+      ) : (
+        <li>Loading</li>
+      )}
     </ul>
   );
 };

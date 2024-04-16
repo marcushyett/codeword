@@ -1,22 +1,23 @@
 // const { default: dictionary } = await import("./words.json.gz");
 import axios from "axios";
 import { AlphabetGridItem } from "../components/AlphabetGrid/AlphabetGridItem";
-var dictionary: { Word: string; Rank: number }[] = [];
+
 const LoadDictionary = async () => {
-  const { data } = await axios.get("words.json.gz", {
-    decompress: true,
+  const { data } = await axios.get("words.json", {
+    responseType: "json",
   });
-  dictionary = data;
   return data;
 };
 
 const GuessWord = (
   partial_word: number[],
-  knownLetters: AlphabetGridItem[]
+  knownLetters: AlphabetGridItem[],
+  dictionary: { Word: string; Rank: number }[]
 ): {
   Word: string;
   Rank: number;
 }[] => {
+  console.log("GuessWord called", dictionary.length);
   const partial_to_regexp = (
     partial_word: number[],
     known_letters: AlphabetGridItem[]
@@ -60,7 +61,10 @@ const GuessWord = (
       Word: string;
       Rank: number;
     }[] = [];
+    console.log("Analyzing", dictionary.length);
+    console.log(dictionary[0]);
     dictionary.forEach((word: { Word: string; Rank: number }) => {
+      // console.log("Checking", word["Word"]);
       if (word["Word"].length === partial_word.length) {
         if (word["Word"].match(regexp)) {
           // Create an object which matches each item in partial_word array with a letter from the word["Wod"] matching on each index
