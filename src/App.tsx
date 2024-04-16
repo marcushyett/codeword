@@ -36,11 +36,14 @@ function App() {
   const [knownLetters, setknownLetters] = useState(initalLetters);
   const [partialWord, setPartialWord] = useState<number[]>([]);
   return (
-    <>
+    <div className="container mx-auto px-4 py-4">
+      <h1>Codeword Solver</h1>
+      <h3>Known Letters</h3>
       <AlphabetGrid
         knownLetters={knownLetters}
         setKnownLetters={setknownLetters}
       />
+      <h3>Guess Word</h3>
       <WordInput
         knownLetters={knownLetters}
         setKnownLetters={setknownLetters}
@@ -51,7 +54,7 @@ function App() {
         setKnownLetters={setknownLetters}
         partialWord={partialWord}
       />
-    </>
+    </div>
   );
 }
 

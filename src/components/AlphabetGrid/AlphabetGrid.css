@@ -1,14 +1,16 @@
 .alphabet-grid-item {
   display: inline-block;
   max-width: fit-content;
+  @apply mr-0;
 }
 .alphabet-grid-letter {
-  width: 25px;
+  @apply w-8 h-8 rounded;
+  /* width: 25px;
   height: 25px;
   border: 1px solid #999;
   border-radius: 1px;
   font-size: 15px;
-  text-align: center;
+  text-align: center; */
 }
 .alphabet-grid-number {
   font-size: 6px;

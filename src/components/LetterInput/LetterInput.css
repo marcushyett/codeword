@@ -1,13 +1,13 @@
 .letter-container {
+  @apply mr-2;
   display: inline-block;
-  margin-right: 15px;
 }
 .letter-input {
-  width: 35px;
-  height: 35px;
-  border: 1px solid #999;
-  border-radius: 3px;
-  font-size: 20px;
+  @apply w-10 h-10 m-0 rounded;
+  /* height: 35px; */
+  /* border: 1px solid #999; */
+  /* border-radius: 3px; */
+  /* font-size: 20px; */
   text-align: center;
 }
 .letter-superscript {

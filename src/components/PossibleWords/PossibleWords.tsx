@@ -18,8 +18,6 @@ const PossibleWords = ({
   const initialCandiateWords = [] as { Word: string; Rank: number }[];
   const [candidateWords, setCandidateWords] = useState(initialCandiateWords);
   LoadDictionary().then((data) => {
-    console.log(data);
-    console.log("Dictionary loaded with " + data.length.toString() + " words");
     setLoading(false);
     dictionary = data;
   });
@@ -32,36 +30,77 @@ const PossibleWords = ({
       });
       const newArr = knownLetters.map((item: AlphabetGridItem) => {
         const matched = matches.find((match) => match.number === item.number);
-        return { ...item, letter: matched?.letter || item.letter };
+        return {
+          ...item,
+          letter: matched?.letter.toUpperCase() || item.letter.toUpperCase(),
+        };
       });
       setKnownLetters(newArr);
     }
   };
   useEffect(() => {
-    console.log("Partial word changed", partialWord);
     if (partialWord.length > 2) {
       const guesses = GuessWord(partialWord, knownLetters, dictionary);
       setCandidateWords(guesses);
-      console.log(guesses);
     }
   }, [partialWord]);
+
+  const calculatePopularity = (rank: number): string => {
+    if (rank < 1000) {
+      return "high";
+    } else if (rank < 10000) {
+      return "mid";
+    }
+    return "low";
+  };
   return (
-    <ul className="candidate-words">
-      {!loading ? (
-        candidateWords.slice(0, 5).map((guess, index) => (
-          <li
-            key={index}
-            className="candidate-word"
-            onClick={handleClick}
-            data-word={guess.Word}
-          >
-            {guess.Word}
-          </li>
-        ))
-      ) : (
-        <li>Loading</li>
-      )}
-    </ul>
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" className="px-6 py-3">
+              Popularity
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Word
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {!loading ? (
+            candidateWords.slice(0, 5).map((guess, index) => (
+              <tr
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                key={index}
+              >
+                <th className="px-6 py-4 ">
+                  <div className="flex items-center">
+                    <div className={calculatePopularity(guess.Rank)}></div>
+                    {calculatePopularity(guess.Rank)}
+                  </div>
+                </th>
+                <td className="px-6 py-4">{guess.Word}</td>
+                <td className="px-6 py-4">
+                  <a
+                    href="#"
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    onClick={handleClick}
+                    data-word={guess.Word}
+                  >
+                    Select
+                  </a>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>Loading</tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

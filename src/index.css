@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply font-bold h-10 min-w-10 py-2 px-2 mr-0.5 rounded;
+}
+.btn-blue {
+  @apply bg-blue-400 text-white;
+}
+.btn-blue:hover {
+  @apply bg-blue-500;
+}
+
+.btn-gray {
+  @apply bg-gray-400 text-white;
+}
+.btn-gray:hover {
+  @apply bg-gray-500;
+}
+input {
+  @apply shadow appearance-none border rounded py-1 px-1 text-gray-700 leading-tight;
+}
+input:focus {
+}
+
+h1 {
+  @apply mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white;
+}
+h3 {
+  @apply text-xl dark:text-white;
+}

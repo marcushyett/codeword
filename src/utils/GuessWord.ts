@@ -17,7 +17,6 @@ const GuessWord = (
   Word: string;
   Rank: number;
 }[] => {
-  console.log("GuessWord called", dictionary.length);
   const partial_to_regexp = (
     partial_word: number[],
     known_letters: AlphabetGridItem[]
@@ -61,8 +60,6 @@ const GuessWord = (
       Word: string;
       Rank: number;
     }[] = [];
-    console.log("Analyzing", dictionary.length);
-    console.log(dictionary[0]);
     dictionary.forEach((word: { Word: string; Rank: number }) => {
       // console.log("Checking", word["Word"]);
       if (word["Word"].length === partial_word.length) {

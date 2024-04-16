@@ -207,8 +207,16 @@ const WordInput = ({
             />
           );
         })}
-        {showAdd ? <button onClick={addInput}>+</button> : null}
-        <button onClick={handleReset}>Clear Word</button>
+        {showAdd ? (
+          <button className="btn btn-blue" onClick={addInput}>
+            +
+          </button>
+        ) : null}
+      </div>
+      <div>
+        <button className="btn btn-gray my-2" onClick={handleReset}>
+          Clear Word
+        </button>
       </div>
     </>
   );
