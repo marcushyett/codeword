@@ -39,10 +39,12 @@ function App() {
     <div className="container mx-auto px-4 py-4">
       <h1>Codeword Solver</h1>
       <h3>Known Letters</h3>
-      <AlphabetGrid
-        knownLetters={knownLetters}
-        setKnownLetters={setknownLetters}
-      />
+      <div className="max-w-md">
+        <AlphabetGrid
+          knownLetters={knownLetters}
+          setKnownLetters={setknownLetters}
+        />
+      </div>
       <h3>Guess Word</h3>
       <WordInput
         knownLetters={knownLetters}

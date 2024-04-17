@@ -38,20 +38,38 @@ const AlphabetGrid = ({
   };
   return (
     <div className="alphabet-grid">
-      {knownLetters.map((item: AlphabetGridItem, i: number) => {
-        return (
-          <div className="alphabet-grid-item" key={i.toString()}>
-            <input
-              className="alphabet-grid-letter"
-              value={item.letter}
-              onChange={handleChange}
-              id={"ag-" + item.number.toString()}
-              maxLength={1}
-            />
-            <span className="alphabet-grid-number">{item.number}</span>
-          </div>
-        );
-      })}
+      <div className="flex">
+        {knownLetters.slice(0, 13).map((item: AlphabetGridItem, i: number) => {
+          return (
+            <div className="flex-1 h-10" key={i.toString()}>
+              <input
+                className="alphabet-grid-letter"
+                value={item.letter}
+                placeholder={item.number.toString()}
+                onChange={handleChange}
+                id={"ag-" + item.number.toString()}
+                maxLength={1}
+              />
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex">
+        {knownLetters.slice(13, 26).map((item: AlphabetGridItem, i: number) => {
+          return (
+            <div className="flex-1 h-10" key={i.toString()}>
+              <input
+                className="alphabet-grid-letter"
+                value={item.letter}
+                placeholder={item.number.toString()}
+                onChange={handleChange}
+                id={"ag-" + item.number.toString()}
+                maxLength={1}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
