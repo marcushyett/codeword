@@ -7,9 +7,7 @@ Designed to help solve codeword type puzzles in newspapers and the like.
 ### Bugs
 
 - First letter box does not auto focus
-- All letters go blank when you add a letter to a box
-- Guesses don't update until blurr
-- Guesses don't update when you modify the Alphabet grid
+
 - You can keep adding numbers and letters when a question mark is showing
 
 ### Possible Features

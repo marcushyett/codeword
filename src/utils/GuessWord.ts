@@ -60,8 +60,10 @@ const GuessWord = (
       Word: string;
       Rank: number;
     }[] = [];
+    console.log(partial_word);
     dictionary.forEach((word: { Word: string; Rank: number }) => {
       // console.log("Checking", word["Word"]);
+
       if (word["Word"].length === partial_word.length) {
         if (word["Word"].match(regexp)) {
           // Create an object which matches each item in partial_word array with a letter from the word["Wod"] matching on each index
@@ -74,10 +76,16 @@ const GuessWord = (
             (item, index) =>
               matches.findIndex((i) => i.letter === item.letter) !== index
           );
+
           const bad_duplicates = duplicates.filter(
-            (item, index) =>
-              duplicates.findIndex((i) => i.letter === item.letter) !== index
+            (item) =>
+              duplicates.findIndex(
+                (i) => i.letter === item.letter && i.number !== item.number
+              ) > -1
           );
+          if (bad_duplicates.length > 0) {
+            console.log(word, bad_duplicates);
+          }
           if (bad_duplicates.length === 0) {
             candidates.push(word);
           }
