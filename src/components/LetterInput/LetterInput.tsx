@@ -32,6 +32,11 @@ const LetterInput = ({
       return;
     }
 
+    //if it contains a question mark with any other stuff then return
+    if (letter_value.match(/\?/) && letter_value !== "?") {
+      return;
+    }
+
     //if letter_value contains any characters that are not letters or numbers (except for question mark) then return
     if (
       letter_value.match(/[^a-zA-Z0-9?]/) &&

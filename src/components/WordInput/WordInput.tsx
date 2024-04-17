@@ -76,12 +76,12 @@ const WordInput = ({
       const nextIndex = index + 1;
       const nextInput = await getElementByIdAsync(nextIndex.toString());
       // ensure value has also changed before moving on to the next field
-      if (
-        nextInput &&
-        e.target.value !== arr[parseInt(e.target.id, 10)].value
-      ) {
-        nextInput.focus();
-      }
+      // if (
+      //   nextInput &&
+      //   e.target.value !== arr[parseInt(e.target.id, 10)].value
+      // ) {
+      nextInput.focus();
+      // }
       setArr((s) => {
         const newArr = s.slice();
         //if e.targetvalue is a number in known_letters then set the value to the letter
@@ -101,13 +101,6 @@ const WordInput = ({
         }
         return newArr;
       });
-
-      // set partial word to be a string of all the letters in the array
-      // remove any itmes with letter_number = 0
-      const word = arr
-        .filter((item) => item.letter_number !== 0)
-        .map((item) => item.letter_number);
-      setPartialWord(word);
     }
     if (status === "letter") {
       // if the letter_number is set for this input then set the letter as the value
@@ -182,7 +175,7 @@ const WordInput = ({
       const newArr = s.slice();
       newArr.forEach((item) => {
         knownLetters.forEach((letter) => {
-          if (letter.number === item.letter_number) {
+          if (letter.number === item.letter_number && letter.letter != "") {
             item.value = letter.letter;
           }
         });
@@ -190,6 +183,15 @@ const WordInput = ({
       return newArr;
     });
   }, [knownLetters]);
+
+  useEffect(() => {
+    // set partial word to be a string of all the letters in the array
+    // remove any itmes with letter_number = 0
+    const word = arr
+      .filter((item) => item.letter_number !== 0)
+      .map((item) => item.letter_number);
+    setPartialWord(word);
+  }, [arr]);
 
   return (
     <>
