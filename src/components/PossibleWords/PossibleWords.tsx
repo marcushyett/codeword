@@ -9,10 +9,12 @@ const PossibleWords = ({
   knownLetters,
   setKnownLetters,
   partialWord,
+  savedWords,
 }: {
   knownLetters: AlphabetGridItem[];
   setKnownLetters: (value: AlphabetGridItem[]) => void;
   partialWord: number[];
+  savedWords: number[][];
 }): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const initialCandiateWords = [] as { Word: string; Rank: number }[];
@@ -21,8 +23,8 @@ const PossibleWords = ({
     setLoading(false);
     dictionary = data;
   });
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    const word = (e.target as HTMLElement).dataset.word;
+
+  const updateKnownLetters = (word: string, partialWord: number[]) => {
     const word_array = word?.split("");
     if (word_array !== undefined) {
       const matches = partialWord.map((letter, index) => {
@@ -38,14 +40,30 @@ const PossibleWords = ({
       setKnownLetters(newArr);
     }
   };
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    const word = (e.target as HTMLElement).dataset.word;
+    updateKnownLetters(word || "", partialWord);
+  };
   useEffect(() => {
     if (partialWord.length > 2) {
       const guesses = GuessWord(partialWord, knownLetters, dictionary);
+
       setCandidateWords(guesses);
     } else {
       setCandidateWords(initialCandiateWords);
     }
   }, [partialWord]);
+
+  useEffect(() => {
+    if (savedWords.length > 0) {
+      savedWords.forEach((word) => {
+        const guesses = GuessWord(word, knownLetters, dictionary);
+        if (guesses.length === 1) {
+          updateKnownLetters(guesses[0].Word, word);
+        }
+      });
+    }
+  }, [knownLetters]);
 
   const calculatePopularity = (rank: number): string => {
     if (rank < 1000) {

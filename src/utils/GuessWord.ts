@@ -60,7 +60,6 @@ const GuessWord = (
       Word: string;
       Rank: number;
     }[] = [];
-    console.log(partial_word);
     dictionary.forEach((word: { Word: string; Rank: number }) => {
       // console.log("Checking", word["Word"]);
 
@@ -83,9 +82,6 @@ const GuessWord = (
                 (i) => i.letter === item.letter && i.number !== item.number
               ) > -1
           );
-          if (bad_duplicates.length > 0) {
-            console.log(word, bad_duplicates);
-          }
           if (bad_duplicates.length === 0) {
             candidates.push(word);
           }

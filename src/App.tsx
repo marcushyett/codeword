@@ -3,6 +3,7 @@ import { useState } from "react";
 import WordInput from "./components/WordInput/WordInput";
 import AlphabetGrid from "./components/AlphabetGrid/AlphabetGrid";
 import PossibleWords from "./components/PossibleWords/PossibleWords";
+import SavedWords from "./components/SavedWords/SavedWords";
 
 function App() {
   const initalLetters = [
@@ -35,6 +36,7 @@ function App() {
   ];
   const [knownLetters, setknownLetters] = useState(initalLetters);
   const [partialWord, setPartialWord] = useState<number[]>([]);
+  const [savedWords, setSavedWords] = useState<number[][]>([]);
   return (
     <div className="container mx-auto px-4 py-4">
       <h1>Codeword Solver</h1>
@@ -49,12 +51,20 @@ function App() {
       <WordInput
         knownLetters={knownLetters}
         setKnownLetters={setknownLetters}
+        partialWord={partialWord}
         setPartialWord={setPartialWord}
+        setSavedWords={setSavedWords}
       />
       <PossibleWords
         knownLetters={knownLetters}
         setKnownLetters={setknownLetters}
         partialWord={partialWord}
+        savedWords={savedWords}
+      />
+      <SavedWords
+        savedWords={savedWords}
+        setSavedWords={setSavedWords}
+        knownLetters={knownLetters}
       />
     </div>
   );

@@ -19,11 +19,15 @@ const getElementByIdAsync = (id: string): Promise<HTMLElement> =>
 const WordInput = ({
   knownLetters,
   setKnownLetters,
+  partialWord,
   setPartialWord,
+  setSavedWords,
 }: {
   knownLetters: AlphabetGridItem[];
   setKnownLetters: (value: AlphabetGridItem[]) => void;
+  partialWord: number[];
   setPartialWord: (value: number[]) => void;
+  setSavedWords: (value: number[][]) => void;
 }) => {
   const inputArr = [
     {
@@ -184,6 +188,13 @@ const WordInput = ({
     });
   }, [knownLetters]);
 
+  const handleSave = () => {
+    // update savedWords with the value of partialWord
+    setSavedWords((s: number[][]) => {
+      return [...s, partialWord];
+    });
+  };
+
   useEffect(() => {
     // set partial word to be a string of all the letters in the array
     // remove any itmes with letter_number = 0
@@ -216,9 +227,18 @@ const WordInput = ({
         ) : null}
       </div>
       <div>
-        <button className="btn btn-gray my-2" onClick={handleReset}>
-          Clear Word
-        </button>
+        <div className="inline-block">
+          <button className="btn btn-gray my-2" onClick={handleReset}>
+            Clear Word
+          </button>
+        </div>
+        <div className="inline-block">
+          {arr.length > 2 ? (
+            <button className="btn btn-gray my-2" onClick={handleSave}>
+              Save for Later
+            </button>
+          ) : null}
+        </div>
       </div>
     </>
   );
